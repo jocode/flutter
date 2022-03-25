@@ -414,3 +414,67 @@ abstract class Nadador {
 class Dolphin extends Mammal with Nadador {}
 class Bat extends Mammal with Caminante, Volador {}
 ```
+
+## Futures
+
+Los futures son muy importantes en Dart, es como una promesa en javascript. Es una tarea asíncrona.
+Un Future, no es más que una tarea asíncrona que se hace a destiempo.
+
+```dart
+void main() {
+  
+  print('Antes de la petición');
+  httpGet('https://api.nasa/stars')
+    .then((data) {
+      print(data);
+    });
+  
+  print('Fin del programa');
+  
+}
+
+Future<String> httpGet(String url) {
+  return Future.delayed(
+    Duration(seconds: 3), () {
+      return 'Hola mundo - 3 segundos';
+    }
+  );
+}
+```
+
+## Async - Await
+
+Si se coloca la palabra reservada **async** dentro de la función, ésta devolverá un Future.
+El programa ejecuta todo el programa primero de manera síncrona y luego se ejecutan las tareas asíncronas.
+
+```dart
+void main() async {
+  
+  print('Antes de la petición');
+  httpGet('https://api.nasa/stars')
+    .then((data) {
+      print(data);
+    });
+  
+  // getNombre('001').then(print);
+  
+  // Usando el await
+  final nombre = await getNombre('001');
+  print(nombre);
+  
+  print('Fin del programa');
+  
+}
+
+Future<String> getNombre(String id) async {
+  return '$id - Camilo';
+}
+
+Future<String> httpGet(String url) {
+  return Future.delayed(
+    Duration(seconds: 3), () {
+      return 'Hola mundo - 3 segundos';
+    }
+  );
+}
+```
